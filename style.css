@@ -182,11 +182,12 @@ button:hover,
     text-align: center;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
 
+    aspect-ratio: 3 / 4;   /* 🔥 THIS CONTROLS HEIGHT */
+}
 .recipe-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
@@ -194,7 +195,8 @@ button:hover,
 
 .recipe-card img {
     width: 100%;
-    height: auto;
+    height: 60%;              /* controls image space inside card */
+    object-fit: cover;        /* 🔥 prevents stretching */
     border-radius: 10px;
     margin-bottom: 10px;
 }
