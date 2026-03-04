@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recipe Details - Smart Recipe Maker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+   <!--  Main website CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="recipe.css">
+</head>
+
+<body>
+
+<header>
+    <div class="heading">
+    <h1 class="logo">Smart Recipe Maker</h1>
+    
+    <a href="index.html"><button class="menuOption">Home</button></a>
+    <!-- <a href="about.html"><button class="menuOption">About</button></a> -->
+    <a href="login.html"><button class="menuOption">Login</button></a>
+    <a href="nutrition.html"><button class="menuOption">Nutrition</button></a>
+    <a href="allrecipes.html"><button class="menuOption">All Recipes</button></a>
+    </div>
+</header>
+
+<main>
+    <div class="recipe-container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <h2 id="recipeTitle">Loading...</h2>
+        <p id="recipeAuthor"></p>
+        
+        <img id="recipeImage" src="" alt="Recipe Image" style="display:none;">
+        
+        <h3>Ingredients</h3>
+        <ul id="recipeIngredients">
+            <!-- Ingredient items populated dynamically -->
+        </ul>
+        
+        <h3>Procedure</h3>
+        <p id="recipeProcedure"></p>
+    </div>
+</main>
+
+<footer>
+    <p style="text-align:center; margin:20px 0;">&copy; 2026 Smart Recipe Maker</p>
+</footer>
+
+<!-- Dynamic recipe script -->
+<script type="module" src="recipe.js"></script>
+
+</body>
+</html>

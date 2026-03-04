@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recipe Maker</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+
+<header>
+    <div class="heading">
+        <h1 class="logo">Smart Recipe Maker</h1>
+
+        <div class="menu-options-container">
+            <a href="index.html"><button class="menuOption">Home</button></a>
+            <a href="login.html"><button class="menuOption">Login</button></a>
+            <a href="nutrition.html"><button class="menuOption">Nutrition</button></a>
+            <a href="allrecipes.html"><button class="menuOption">All Recipes</button></a>
+        </div>
+    </div>
+</header>   
+
+<main>
+
+    <!-- 🔎 SEARCH BAR -->
+    <div class="search-container">
+        <input type="text" id="recipeSearch" placeholder="Search recipes by name..." />
+        <button id="searchBtn">Search</button>
+    </div>
+
+
+    <!-- 🥕 INGREDIENT SECTION -->
+    <div class="frontpage">
+
+        <div class="Ingredients">
+            <h2>SELECT INGREDIENT CATEGORY :</h2>
+            <div id="ingredientCategoryContainer"></div>
+
+            <h3>Ingredients :</h3>
+            <div id="ingredientButtonsContainer"></div>
+        </div>
+
+        <!-- ✅ SELECTED INGREDIENTS -->
+        <div class="selected">
+            <h3>Selected Ingredients :</h3>
+            <div id="selectedIngredientsContainer"></div>
+        </div>
+
+    </div>
+
+
+    <!-- 🍛 RECIPE CATEGORY FILTER -->
+    <div class="CategoryFilterSection">
+        <h3>Recipe Category :</h3>
+        <div class="CategoryContainer"></div>
+    </div>
+
+
+    <!-- 🍲 FILTERED RESULTS -->
+    <div class="RecipeResultsContainer">
+        <h3>Recipe Results :</h3>
+        <div class="RecipeResultsDisplay" id="RecipeResultsId"></div>
+    </div>
+
+
+    <!-- 🆕 LATEST -->
+    <div class="LatestRecipesContainer">
+        <h3>Latest Recipes :</h3>
+        <div class="LatestRecipesDisplay" id="LatestRecipesId"></div>
+    </div>
+
+</main>
+<footer>
+</footer>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>

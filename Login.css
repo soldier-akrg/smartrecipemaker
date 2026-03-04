@@ -1,0 +1,158 @@
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+    background: linear-gradient(rgba(255, 244, 212, 0.8), rgba(255, 244, 212, 0.8)),
+                url(webback.jpg);
+    
+    background-attachment: fixed;
+    font-size: 1rem;
+}
+/* ===== HEADER ===== */
+.heading {
+    background-color: rgb(95, 9, 9);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    position: relative;
+    top: 0;
+}
+
+/* LOGO */
+.logo {
+    color: rgb(248, 255, 205);
+    font-family: cursive;
+    font-size: 50px;
+}
+
+/* NAV BUTTONS */
+.menuOption {
+    background-color: rgb(107, 26, 26);
+    color: rgb(255, 241, 197);
+    border: 2px solid rgb(255, 243, 206);
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.menuOption:hover {
+    background-color: rgb(87, 25, 25);
+    color: rgb(255, 255, 202);
+}
+
+/* ===== LOGIN WRAPPER ===== */
+.loginWrapper {
+    background-color: rgba(95, 9, 9, 0.95);
+    padding: 50px 60px;
+    border-radius: 20px;
+    width: 900px;
+    max-width: 95%;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    margin: 60px auto 50px auto; /* margin top to give space under header */
+}
+
+/* ===== LOGIN SECTIONS ===== */
+.loginSections {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* ===== LOGIN BOXES ===== */
+.userLoginBox,
+.adminLoginBox {
+    background-color: rgb(90, 22, 22);
+    padding: 30px;
+    border-radius: 15px;
+    flex: 1 1 300px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* ===== HEADINGS ===== */
+.userLoginBox h2,
+.adminLoginBox h2 {
+    color: rgb(255, 253, 211);
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* ===== INPUT FIELDS ===== */
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    border: none;
+    font-size: 16px;
+    background-color: rgb(255, 238, 215);
+}
+
+/* ===== BUTTONS ===== */
+button {
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: 2px solid rgb(255, 243, 206);
+    background-color: rgb(95, 23, 23);
+    color: rgb(255, 255, 202);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: rgb(130, 35, 35);
+    transform: scale(1.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .logo {
+        font-size: 42px;
+    }
+    .userLoginBox, .adminLoginBox {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .loginSections {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .loginWrapper {
+        padding: 30px 20px;
+        margin-top: 40px;
+    }
+    .logo {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 30px;
+    }
+    input, button, .menuOption {
+        width: 100%;
+    }
+    .userLoginBox, .adminLoginBox {
+        flex: 1 1 100%;
+    }
+}

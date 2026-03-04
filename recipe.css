@@ -1,0 +1,76 @@
+.recipe-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
+body {
+    background: linear-gradient(rgba(255, 244, 212, 0.8), rgba(255, 244, 212, 0.8)),
+                url(webback.jpg);
+    
+    background-attachment: fixed;
+    font-size: 1rem;
+}
+.logo {
+    color: rgb(248, 255, 205);
+    font-family: cursive;
+    font-size: 50px;
+    flex: 1 1 100%;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* NAV BUTTONS */
+.menuOption {
+    background-color: rgb(107, 26, 26);
+    color: rgb(255, 241, 197);
+    border: 2px solid rgb(255, 243, 206);
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.menuOption:hover {
+    background-color: rgb(87, 25, 25);
+    color: rgb(255, 255, 202);
+}
+
+/* MAIN TITLE */
+main h1 {
+    color: rgb(103, 21, 21);
+    text-align: center;
+    margin: 20px 0;
+}
+
+.recipe-container img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+.recipe-container h2 {
+    margin-bottom: 5px;
+}
+.recipe-container h3 {
+    margin-top: 20px;
+}
+.recipe-container ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.recipe-container p {
+    line-height: 1.6;
+}
+.back-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: #f04e30;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}

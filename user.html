@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Recipe Maker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SAME MAIN WEBSITE CSS -->
+    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+    <div class="heading">
+    <h1 class="logo">Smart Recipe Maker</h1>
+    
+    <a href="index.html"><button class="menuOption">Home</button></a>
+    <!-- <a href="about.html"><button class="menuOption">About</button></a> -->
+    <a href="login.html"><button class="menuOption">Login</button></a>
+    <a href="nutrition.html"><button class="menuOption">Nutrition</button></a>
+    <a href="allrecipes.html"><button class="menuOption">All Recipes</button></a>
+    </div>
+</header>
+<button id="logoutBtn">Logout</button>
+
+<!-- ================= MAIN ================= -->
+<main>
+
+    <div class="frontpage">
+
+        <!-- MENU -->
+        <div class="menuContainer" id="menuContainer">
+            <a href="index.html"><button class="menuOption">Home</button></a>
+            <a href="recipes.html"><button class="menuOption">All Recipes</button></a>
+            <a href="user-dashboard.html"><button class="menuOption">Dashboard</button></a>
+        </div>
+
+        <!-- ================= USER PANEL ================= -->
+        <div class="UserDashboardContainer">
+
+            <h2>Add Your Recipe</h2>
+
+            <form id="userRecipeForm">
+
+                <!-- TITLE -->
+                <label>Recipe Title :</label>
+                <input type="text" id="userTitle" required>
+
+                <!-- CATEGORY -->
+                <label>Select Category :</label>
+                <select id="userCategorySelect">
+                    <!-- Load dynamically from Firebase -->
+                </select>
+
+                <!-- INGREDIENT CATEGORY -->
+                <label>Select Ingredient Category :</label>
+                <select id="userIngredientCategorySelect">
+                    <!-- Load dynamically -->
+                </select>
+
+                <!-- INGREDIENTS -->
+                <label>Select Ingredients :</label>
+                <div class="Ingredients" id="userIngredientContainer">
+                    <!-- Ingredient buttons load dynamically -->
+                </div>
+
+                <!-- PROCEDURE -->
+                <label>Procedure :</label>
+                <textarea id="userProcedure" rows="5" required></textarea>
+
+                <!-- IMAGE -->
+                <label>Image URL :</label>
+                <input type="url" id="userImageUrl">
+
+                <!-- SUBMIT -->
+                <button type="submit" class="searchBtn">Submit Recipe</button>
+
+            </form>
+
+        </div>
+
+        <!-- ================= USER RECIPES SECTION ================= -->
+        <div class="UserSubmittedRecipes">
+
+            <h3>Your Submitted Recipes :</h3>
+            <div id="userRecipesList">
+                <!-- User's own recipes (pending + approved) -->
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+</footer>
+
+<script type="module" src="user.js"></script>
+<script type="module" src="user-protect.js"></script>
+
+</body>
+</html>

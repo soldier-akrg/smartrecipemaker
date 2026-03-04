@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - Smart Recipe Maker</title>
+    <link rel="stylesheet" href="Login.css">
+</head>
+<body>
+  <header>
+    <div class="heading">
+    <h1 class="logo">Smart Recipe Maker</h1>
+    
+    <a href="index.html"><button class="menuOption">Home</button></a>
+    <!-- <a href="about.html"><button class="menuOption">About</button></a> -->
+    <a href="login.html"><button class="menuOption">Login</button></a>
+    <a href="nutrition.html"><button class="menuOption">Nutrition</button></a>
+    <a href="allrecipes.html"><button class="menuOption">All Recipes</button></a>
+    </div>
+  </header>
+<div class="loginWrapper">
+    
+    <div class="loginSections">
+        <!-- MENU -->
+        
+        <!-- ================= USER LOGIN ================= -->
+        <div class="userLoginBox">
+            <h2>User Login</h2>
+            <input type="text" id="userNameInput" placeholder="Enter Your Name">
+            <button id="userLoginBtn">Enter</button>
+        </div>
+
+        <!-- ================= ADMIN LOGIN ================= -->
+        <div class="adminLoginBox">
+            <h2>Admin Login</h2>
+            <input type="email" id="adminEmailInput" placeholder="Enter Admin Email">
+            <input type="password" id="adminPasswordInput" placeholder="Enter Password">
+            <button id="adminLoginBtn">Login as Admin</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="login.js"></script>
+</body>
+</html>
