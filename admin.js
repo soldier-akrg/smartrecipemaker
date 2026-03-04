@@ -52,12 +52,14 @@ async function protectAdminPage(user) {
 onAuthStateChanged(auth, async (user) => {
   const ok = await protectAdminPage(user);
   if (ok) {
-    // ✅ Load admin data only after verification
     loadCategories();
     loadIngredientCategories();
     loadIngredients();
     loadAllRecipes();
     loadPendingRecipes();
+    loadDeleteIngredientCategories();
+    loadDeleteRecipeCategories();
+    loadDeleteIngredientCategoriesOnly();
   }
 });
 
@@ -88,7 +90,7 @@ navButtons.forEach(btn => {
 });
 
 /* =======================================
-   📂 CATEGORY MANAGEMENT (Recipe Categories)
+   📂 RECIPE CATEGORY MANAGEMENT
 ======================================= */
 
 const categoryForm = document.getElementById("categoryForm");
@@ -104,17 +106,17 @@ async function loadCategories() {
   snapshot.forEach(docSnap => {
     const data = docSnap.data();
 
-    // Dropdown for recipe form
     const option = document.createElement("option");
     option.value = docSnap.id;
     option.textContent = data.name;
     categorySelect.appendChild(option);
 
-    // Show in customization list
     const div = document.createElement("div");
     div.textContent = data.name;
     categoryListDiv.appendChild(div);
   });
+
+  loadDeleteRecipeCategories();
 }
 
 categoryForm.addEventListener("submit", async (e) => {
@@ -132,6 +134,41 @@ categoryForm.addEventListener("submit", async (e) => {
 });
 
 /* =======================================
+   🗑 DELETE RECIPE CATEGORY
+======================================= */
+
+const deleteRecipeCategorySelect = document.getElementById("deleteRecipeCategorySelect");
+const deleteRecipeCategoryBtn = document.getElementById("deleteRecipeCategoryBtn");
+
+async function loadDeleteRecipeCategories() {
+  if (!deleteRecipeCategorySelect) return;
+
+  const snapshot = await getDocs(collection(db, "categories"));
+  deleteRecipeCategorySelect.innerHTML = "<option value=''>Select Category</option>";
+
+  snapshot.forEach(docSnap => {
+    const option = document.createElement("option");
+    option.value = docSnap.id;
+    option.textContent = docSnap.data().name;
+    deleteRecipeCategorySelect.appendChild(option);
+  });
+}
+
+if (deleteRecipeCategoryBtn) {
+  deleteRecipeCategoryBtn.addEventListener("click", async () => {
+    const categoryId = deleteRecipeCategorySelect.value;
+    if (!categoryId) return alert("Please select a category!");
+
+    if (!confirm("Delete this recipe category?")) return;
+
+    await deleteDoc(doc(db, "categories", categoryId));
+    alert("Recipe category deleted!");
+
+    loadCategories();
+  });
+}
+
+/* =======================================
    🧂 INGREDIENT CATEGORY MANAGEMENT
 ======================================= */
 
@@ -141,22 +178,31 @@ const ingredientCategoryList = document.getElementById("ingredientCategoryList")
 
 async function loadIngredientCategories() {
   const snapshot = await getDocs(collection(db, "ingredientCategories"));
+
+  // Clear selects safely
   ingredientCategorySelect.innerHTML = "";
-  ingredientCategoryList.innerHTML = "";
+  recipeIngredientCategorySelect.innerHTML =
+    "<option value=''>Select Category</option>";
+
+  if (snapshot.empty) {
+    console.log("No ingredient categories found");
+    return;
+  }
 
   snapshot.forEach(docSnap => {
     const data = docSnap.data();
 
-    // Dropdown for adding ingredient
-    const option = document.createElement("option");
-    option.value = docSnap.id;
-    option.textContent = data.name;
-    ingredientCategorySelect.appendChild(option);
+    // For Add Ingredient section
+    const opt1 = document.createElement("option");
+    opt1.value = docSnap.id;
+    opt1.textContent = data.name;
+    ingredientCategorySelect.appendChild(opt1);
 
-    // Show in customization list
-    const div = document.createElement("div");
-    div.textContent = data.name;
-    ingredientCategoryList.appendChild(div);
+    // For Add Recipe section
+    const opt2 = document.createElement("option");
+    opt2.value = docSnap.id;
+    opt2.textContent = data.name;
+    recipeIngredientCategorySelect.appendChild(opt2);
   });
 }
 
@@ -173,6 +219,41 @@ ingredientCategoryForm.addEventListener("submit", async (e) => {
   ingredientCategoryForm.reset();
   loadIngredientCategories();
 });
+
+/* =======================================
+   🗑 DELETE INGREDIENT CATEGORY
+======================================= */
+
+const deleteIngredientCategoryOnlySelect = document.getElementById("deleteIngredientCategoryOnlySelect");
+const deleteIngredientCategoryBtn = document.getElementById("deleteIngredientCategoryBtn");
+
+async function loadDeleteIngredientCategoriesOnly() {
+  if (!deleteIngredientCategoryOnlySelect) return;
+
+  const snapshot = await getDocs(collection(db, "ingredientCategories"));
+  deleteIngredientCategoryOnlySelect.innerHTML = "<option value=''>Select Category</option>";
+
+  snapshot.forEach(docSnap => {
+    const option = document.createElement("option");
+    option.value = docSnap.id;
+    option.textContent = docSnap.data().name;
+    deleteIngredientCategoryOnlySelect.appendChild(option);
+  });
+}
+
+if (deleteIngredientCategoryBtn) {
+  deleteIngredientCategoryBtn.addEventListener("click", async () => {
+    const categoryId = deleteIngredientCategoryOnlySelect.value;
+    if (!categoryId) return alert("Please select a category!");
+
+    if (!confirm("Delete this ingredient category?")) return;
+
+    await deleteDoc(doc(db, "ingredientCategories", categoryId));
+    alert("Ingredient category deleted!");
+
+    loadIngredientCategories();
+  });
+}
 
 /* =======================================
    🥕 INGREDIENT MANAGEMENT
@@ -218,6 +299,71 @@ ingredientForm.addEventListener("submit", async (e) => {
   ingredientForm.reset();
   loadIngredients();
 });
+
+/* =======================================
+   🗑 DELETE INGREDIENTS BY CATEGORY
+======================================= */
+
+const deleteIngredientCategorySelect = document.getElementById("deleteIngredientCategorySelect");
+const deleteIngredientContainer = document.getElementById("deleteIngredientContainer");
+const deleteSelectedBtn = document.getElementById("deleteSelectedIngredients");
+
+async function loadDeleteIngredientCategories() {
+  if (!deleteIngredientCategorySelect) return;
+
+  const snapshot = await getDocs(collection(db, "ingredientCategories"));
+  deleteIngredientCategorySelect.innerHTML = "<option value=''>Select Category</option>";
+
+  snapshot.forEach(docSnap => {
+    const option = document.createElement("option");
+    option.value = docSnap.id;
+    option.textContent = docSnap.data().name;
+    deleteIngredientCategorySelect.appendChild(option);
+  });
+}
+
+if (deleteIngredientCategorySelect) {
+  deleteIngredientCategorySelect.addEventListener("change", async () => {
+    const categoryId = deleteIngredientCategorySelect.value;
+    deleteIngredientContainer.innerHTML = "";
+
+    if (!categoryId) return;
+
+    const snapshot = await getDocs(collection(db, "ingredients"));
+
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      if (data.categoryId === categoryId) {
+        const btn = document.createElement("button");
+        btn.textContent = data.name;
+        btn.dataset.id = docSnap.id;
+
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("active");
+        });
+
+        deleteIngredientContainer.appendChild(btn);
+      }
+    });
+  });
+}
+
+if (deleteSelectedBtn) {
+  deleteSelectedBtn.addEventListener("click", async () => {
+    const selectedButtons = deleteIngredientContainer.querySelectorAll("button.active");
+    if (selectedButtons.length === 0) return alert("No ingredients selected!");
+
+    if (!confirm("Delete selected ingredients?")) return;
+
+    for (let btn of selectedButtons) {
+      await deleteDoc(doc(db, "ingredients", btn.dataset.id));
+    }
+
+    alert("Selected ingredients deleted!");
+    deleteIngredientContainer.innerHTML = "";
+    loadIngredients();
+  });
+}
 
 /* =======================================
    🍲 ADD RECIPE
@@ -270,6 +416,7 @@ function loadAllRecipes() {
         <h3>${data.title}</h3>
         <button data-delete="${docSnap.id}">Delete</button>
       `;
+
       recipeList.appendChild(div);
     });
   });
@@ -302,6 +449,7 @@ function loadPendingRecipes() {
         <button data-approve="${docSnap.id}">Approve ✅</button>
         <button data-deny="${docSnap.id}">Deny ❌</button>
       `;
+
       pendingList.appendChild(div);
     });
   });
@@ -311,6 +459,7 @@ document.addEventListener("click", async (e) => {
   if (e.target.dataset.approve) {
     const docRef = doc(db, "pendingRecipes", e.target.dataset.approve);
     const snap = await getDoc(docRef);
+
     if (snap.exists()) {
       const data = snap.data();
       await addDoc(collection(db, "recipes"), {
@@ -318,20 +467,24 @@ document.addEventListener("click", async (e) => {
         status: "approved",
         approvedAt: serverTimestamp()
       });
+
       await deleteDoc(docRef);
     }
   }
+
   if (e.target.dataset.deny) {
     await deleteDoc(doc(db, "pendingRecipes", e.target.dataset.deny));
   }
 });
+const toggleBtn = document.getElementById("toggleIngredients");
+const wrapper = document.getElementById("ingredientWrapper");
 
-/* =======================================
-   🔥 INITIAL LOAD
-======================================= */
+toggleBtn?.addEventListener("click", () => {
+  wrapper.classList.toggle("expanded");
 
-window.addEventListener("DOMContentLoaded", async () => {
-  await loadCategories();
-  await loadIngredientCategories();
-  await loadIngredients();
+  if (wrapper.classList.contains("expanded")) {
+    toggleBtn.textContent = "Existing Ingredients ▲";
+  } else {
+    toggleBtn.textContent = "Existing Ingredients ▼";
+  }
 });
