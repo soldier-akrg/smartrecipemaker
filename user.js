@@ -123,11 +123,9 @@ ingredientCategorySelect.addEventListener("change", () => {
 });
 
 /* -------- Load Ingredients By Category -------- */
-
 async function loadIngredients(ingredientCategoryId) {
 
-  selectedIngredients = [];
-  ingredientContainer.innerHTML = "";
+  ingredientContainer.innerHTML = ""; // Only clear UI, NOT array
 
   const snapshot = await getDocs(collection(db, "ingredients"));
 
@@ -141,6 +139,11 @@ async function loadIngredients(ingredientCategoryId) {
       btn.textContent = data.name;
       btn.type = "button";
       btn.classList.add("ingredient-btn");
+
+      // 🔥 If already selected earlier, keep it active
+      if (selectedIngredients.includes(docSnap.id)) {
+        btn.classList.add("active");
+      }
 
       btn.addEventListener("click", () => {
 
