@@ -11,13 +11,7 @@
 body {
     background-color: #f5f7fa;
 }
-body {
-    background: linear-gradient(rgba(255, 244, 212, 0.8), rgba(255, 244, 212, 0.8)),
-                url(webback.jpg);
-    
-    background-attachment: fixed;
-    font-size: 1rem;
-}
+
 /* =======================================
    HEADER & NAVIGATION
 ======================================= */
@@ -320,4 +314,30 @@ textarea {
         font-size: 14px;
         padding: 6px 12px;
     }
+}
+/* ===============================
+   Collapsible Ingredients Block
+================================= */
+
+.collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    margin-top: 15px;
+}
+
+#ingredientWrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+#ingredientWrapper.expanded {
+    max-height: 400px; /* adjust if needed */
+    overflow-y: auto;
+    padding-top: 10px;
+}
+
+/* Optional scroll style */
+#ingredientWrapper::-webkit-scrollbar {
+    width: 6px;
 }
