@@ -2,135 +2,242 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Smart Recipe Maker - Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Recipe Maker</title>
-    <link href="admin.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="admin.css">
+
+    <!-- Google Fonts (Optional if needed later) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-        
 </head>
+
 <body>
-    
-    <header >
-        
-        <div class="heading">
-          
-          <h1 class="logo">Smart Recipe Maker</h1>
-          <a href="index.html"><button class="menuOption">Home</button></a>
-          <!-- <a href="about.html"><button class="menuOption">About</button></a> -->
-          <a href="login.html"><button class="menuOption">Login</button></a>
-          <a href="nutrition.html"><button class="menuOption">Nutrition</button></a>
-          <a href="allrecipes.html"><button class="menuOption">All Recipes</button></a>
-            </div>
-    </header>
-    <button id="logoutBtn">Logout</button>
-        
-    <main>
-          <div class="admin-container">
 
-            <!-- LEFT PANEL -->
-            <aside class="sidebar">
-                <button class="nav-btn" data-section="addRecipe">Add Recipe</button>
-                <button class="nav-btn" data-section="manageRecipes">Manage Recipes</button>
-                <button class="nav-btn" data-section="pendingRecipes">Pending Approvals</button>
-                <button class="nav-btn" data-section="customization">Customization</button>
-            </aside>
+<!-- ================= HEADER ================= -->
+<header>
+    <div class="heading">
+        <h1 class="logo">Smart Recipe Maker</h1>
 
-            <!-- RIGHT CONTENT -->
-            <div class="content">
+        <nav class="top-nav">
+            <a href="index.html"><button class="menuOption">Home</button></a>
+            <a href="login.html"><button class="menuOption">Login</button></a>
+            <a href="nutrition.html"><button class="menuOption">Nutrition</button></a>
+            <a href="allrecipes.html"><button class="menuOption">All Recipes</button></a>
+        </nav>
+    </div>
 
-                <!-- ADD RECIPE -->
-                <section id="addRecipe" class="admin-section active">
-                    <h2>Add New Recipe</h2>
-                    <form id="recipeForm">
+    <div class="logout-container">
+        <button id="logoutBtn">Logout</button>
+    </div>
+</header>
 
-                        <label>Recipe Title</label>
+
+<!-- ================= MAIN ================= -->
+<main>
+    <div class="admin-container">
+
+        <!-- ===== LEFT SIDEBAR ===== -->
+        <aside class="sidebar">
+            <button class="nav-btn" data-section="addRecipe">Add Recipe</button>
+            <button class="nav-btn" data-section="manageRecipes">Manage Recipes</button>
+            <button class="nav-btn" data-section="pendingRecipes">Pending Approvals</button>
+            <button class="nav-btn" data-section="customization">Customization</button>
+        </aside>
+
+
+        <!-- ===== RIGHT CONTENT ===== -->
+        <div class="content">
+
+            <!-- ================= ADD RECIPE ================= -->
+            <section id="addRecipe" class="admin-section active">
+                <h2>Add New Recipe</h2>
+
+                <form id="recipeForm">
+
+                    <div class="form-group">
+                        <label for="title">Recipe Title</label>
                         <input type="text" id="title" required>
+                    </div>
 
-                        <label>Select Category</label>
-                        <select id="categorySelect"></select>
+                    <div class="form-group">
+                        <label for="categorySelect">Select Recipe Category</label>
+                        <select id="categorySelect" required></select>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="recipeIngredientCategorySelect">
+                            Select Ingredient Category
+                        </label>
+                        <select id="recipeIngredientCategorySelect" required></select>
+                    </div>
+
+                    <div class="form-group">
                         <label>Select Ingredients</label>
-                        <div id="ingredientContainer" class="button-group"></div>
+                        <div id="recipeIngredientContainer" class="button-group"></div>
+                    </div>
 
-                        <label>Procedure</label>
+                    <!-- ✅ NEW: Selected Ingredients Preview -->
+                    <div class="form-group">
+                        <label>Selected Ingredients For This Recipe</label>
+                        <div id="selectedIngredientsPreview" class="preview-box">
+                            No ingredients selected
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="procedure">Procedure</label>
                         <textarea id="procedure" rows="5" required></textarea>
+                    </div>
 
-                        <label>Image URL</label>
+                    <div class="form-group">
+                        <label for="imageUrl">Image URL</label>
                         <input type="url" id="imageUrl">
+                    </div>
 
-                        <button type="submit" class="primary-btn">Submit Recipe</button>
+                    <button type="submit" class="primary-btn">
+                        Submit Recipe
+                    </button>
+
+                </form>
+            </section>
+
+
+            <!-- ================= MANAGE RECIPES ================= -->
+            <section id="manageRecipes" class="admin-section">
+                <h2>Manage Recipes</h2>
+                <div id="recipeList"></div>
+            </section>
+
+
+            <!-- ================= PENDING APPROVALS ================= -->
+            <section id="pendingRecipes" class="admin-section">
+                <h2>Pending Recipe Approvals</h2>
+                <div id="pendingList"></div>
+            </section>
+
+
+            <!-- ================= CUSTOMIZATION ================= -->
+            <section id="customization" class="admin-section">
+                <h2>Customization</h2>
+
+                <!-- ===== ADD RECIPE CATEGORY ===== -->
+                <div class="custom-box">
+                    <h3>Add Recipe Category</h3>
+
+                    <form id="categoryForm">
+                        <input type="text" id="newCategory"
+                            placeholder="Enter recipe category (e.g., Veg)"
+                            required>
+                        <button type="submit" class="primary-btn">
+                            Add Category
+                        </button>
                     </form>
-                </section>
 
-                <!-- MANAGE RECIPES -->
-                <section id="manageRecipes" class="admin-section">
-                    <h2>Manage Recipes</h2>
-                    <div id="recipeList"></div>
-                </section>
+                    <h4>Existing Categories</h4>
+                    <div id="categoryList"></div>
+                </div>
 
-                <!-- PENDING APPROVALS -->
-                <section id="pendingRecipes" class="admin-section">
-                    <h2>Pending Recipe Approvals</h2>
-                    <div id="pendingList"></div>
-                </section>
 
-                
-                <!-- CUSTOMIZATION -->
-                <section id="customization" class="admin-section">
-                    <h2>Customization</h2>
-                
-                    <!-- ADD RECIPE CATEGORY -->
-                    <div class="custom-box">
-                        <h3>Add Recipe Category</h3>
-                        <form id="categoryForm">
-                            <input type="text" id="newCategory" placeholder="Enter recipe category (e.g., Veg)" required>
-                            <button type="submit" class="primary-btn">Add Category</button>
-                        </form>
-                
-                        <h4>Existing Categories</h4>
-                        <div id="categoryList"></div>
-                    </div>
-                
-                    <!-- ADD INGREDIENT CATEGORY -->
-                    <div class="custom-box">
-                        <h3>Add Ingredient Category</h3>
-                        <form id="ingredientCategoryForm">
-                            <input type="text" id="newIngredientCategory" placeholder="Enter ingredient category (e.g., Dairy)" required>
-                            <button type="submit" class="primary-btn">Add Ingredient Category</button>
-                        </form>
-                
-                        <h4>Existing Ingredient Categories</h4>
-                        <div id="ingredientCategoryList"></div>
-                    </div>
-                
-                    <!-- ADD INGREDIENT -->
-                    <div class="custom-box">
-                        <h3>Add Ingredient</h3>
-                        <form id="ingredientForm">
-                            <input type="text" id="newIngredient" placeholder="Enter ingredient name" required>
-                            <select id="ingredientCategorySelect"></select>
-                            <button type="submit" class="primary-btn">Add Ingredient</button>
-                        </form>
-                
-                        <h4>Existing Ingredients</h4>
+                <!-- ===== ADD INGREDIENT CATEGORY ===== -->
+                <div class="custom-box">
+                    <h3>Add Ingredient Category</h3>
+
+                    <form id="ingredientCategoryForm">
+                        <input type="text" id="newIngredientCategory"
+                            placeholder="Enter ingredient category (e.g., Dairy)"
+                            required>
+                        <button type="submit" class="primary-btn">
+                            Add Ingredient Category
+                        </button>
+                    </form>
+
+                    <h4>Existing Ingredient Categories</h4>
+                    <div id="ingredientCategoryList"></div>
+                </div>
+
+
+                <!-- ===== ADD INGREDIENT ===== -->
+                <div class="custom-box">
+                    <h3>Add Ingredient</h3>
+
+                    <form id="ingredientForm">
+                        <input type="text" id="newIngredient"
+                            placeholder="Enter ingredient name"
+                            required>
+
+                        <select id="ingredientCategorySelect" required></select>
+
+                        <button type="submit" class="primary-btn">
+                            Add Ingredient
+                        </button>
+                    </form>
+
+                    <h4 class="collapsible-header" id="toggleIngredients">
+                        Existing Ingredients ▼
+                    </h4>
+                    
+                    <div id="ingredientWrapper" class="collapsed">
                         <div id="ingredientContainer" class="button-group"></div>
                     </div>
-                </section>
-          
-            
-  
-        
-        </div>
-    </main>
-                                                                                                          
-        
-    <footer>
+                </div>
 
-    </footer>
-    <script type="module" src="admin.js"></script>
-    <script type="module" src="admin-protect.js"></script>
-    
+
+                <!-- ===== DELETE INGREDIENTS BY CATEGORY ===== -->
+                <div class="custom-box">
+                    <h3>Delete Ingredients By Category</h3>
+
+                    <label for="deleteIngredientCategorySelect">
+                        Select Ingredient Category
+                    </label>
+                    <select id="deleteIngredientCategorySelect"></select>
+
+                    <div id="deleteIngredientContainer" class="button-group"></div>
+
+                    <button id="deleteSelectedIngredients" class="primary-btn">
+                        Delete Selected Ingredients
+                    </button>
+                </div>
+
+
+                <!-- ===== DELETE RECIPE CATEGORY ===== -->
+                <div class="custom-box">
+                    <h3>Delete Recipe Category</h3>
+
+                    <select id="deleteRecipeCategorySelect"></select>
+
+                    <button id="deleteRecipeCategoryBtn" class="primary-btn">
+                        Delete Selected Category
+                    </button>
+                </div>
+
+
+                <!-- ===== DELETE INGREDIENT CATEGORY ===== -->
+                <div class="custom-box">
+                    <h3>Delete Ingredient Category</h3>
+
+                    <select id="deleteIngredientCategoryOnlySelect"></select>
+
+                    <button id="deleteIngredientCategoryBtn" class="primary-btn">
+                        Delete Selected Ingredient Category
+                    </button>
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+<footer></footer>
+
+
+<!-- ================= SCRIPTS ================= -->
+<script type="module" src="admin.js"></script>
+<script type="module" src="admin-protect.js"></script>
+
 </body>
 </html>
